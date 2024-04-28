@@ -1,10 +1,21 @@
 package views
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 )
+
+func Parse(filePath string) (Template, error) {
+	tpl, err := template.ParseFiles(filePath)
+	if err != nil {
+		return Template{}, fmt.Errorf("parsing template: %w", err)
+	}
+	return Template{
+		htmlTpl: tpl,
+	}, nil
+}
 
 type Template struct {
 	htmlTpl *template.Template
